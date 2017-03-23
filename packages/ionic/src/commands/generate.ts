@@ -1,18 +1,17 @@
+import * as chalk from 'chalk';
+
 import {
   CommandLineInputs,
   CommandLineOptions,
   Command,
   CommandMetadata,
-  TaskChain,
   validators,
 } from '@ionic/cli-utils';
-
-import { load } from '../lib/utils/commonjs-loader';
 
 @CommandMetadata({
   name: 'generate',
   aliases: ['g'],
-  description: 'Generate pages and components',
+  description: 'Generates pipes, components, pages, directives, and tabs',
   inputs: [
     {
       name: 'type',
@@ -26,10 +25,10 @@ import { load } from '../lib/utils/commonjs-loader';
     },
     {
       name: 'name',
-      description: 'What name that you like for the file:',
+      description: 'The name of the component being generated',
       validators: [validators.required],
       prompt: {
-        message: 'name'
+        message: 'What should the name be?'
       }
     }
   ],
@@ -37,17 +36,14 @@ import { load } from '../lib/utils/commonjs-loader';
 })
 export class GenerateCommand extends Command {
   async run(inputs: CommandLineInputs, options: CommandLineOptions): Promise<void> {
-    const [, name ] = inputs;
-    const tasks = new TaskChain();
+    const [ type, name ] = inputs;
 
-    process.argv = ['node', 'appscripts'];
-    const appScripts = load('@ionic/app-scripts');
-    const context = appScripts.generateContext();
+    await this.env.emitEvent('generate', {
+      metadata: this.metadata,
+      inputs,
+      options
+    });
 
-    tasks.next('Generating');
-
-    await appScripts.processPageRequest(context, name);
-
-    tasks.end();
+    this.env.log.ok(`Generated a ${chalk.bold(type)} named ${chalk.bold(name)}!`);
   }
 }

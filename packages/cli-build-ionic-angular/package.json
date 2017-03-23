@@ -7,7 +7,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "lint": "../../node_modules/.bin/tslint -c ../../tslint.json 'src/**/*.ts'",
-    "build": "npm run lint && npm run clean && ../../node_modules/.bin/webpack",
+    "build": "npm run clean && ../../node_modules/.bin/webpack",
     "clean": "rm -rf ./dist",
     "changelog": "conventional-changelog -i CHANGELOG.md -s -p angular",
     "test": "../../node_modules/.bin/jest",
@@ -27,13 +27,11 @@
       "js"
     ],
     "transform": {
-      "^.+\\.(ts)$": "<rootDir>/preprocessor.js"
+      ".(ts)": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "/__tests__/.*\\.(ts|js)$",
-    "rootDir": "/Users/joshthomas/Workspace/ionic-cli/packages/cli-plugin-app-scripts",
-    "name": "-Users-joshthomas-Workspace-ionic-cli-packages-cli-plugin-app-scripts",
     "setupFiles": [],
-    "testRunner": "/Users/joshthomas/Workspace/ionic-cli/node_modules/jest-jasmine2/build/index.js"
+    "testResultsProcessor": "<rootDir>/../../node_modules/ts-jest/coverageprocessor.js"
   },
   "dependencies": {
     "chalk": "^1.1.3"
