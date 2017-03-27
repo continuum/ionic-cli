@@ -3,7 +3,6 @@ import { EventEnvironment } from '@ionic/cli-utils';
 import { build } from './build';
 import { generate } from './generate';
 import { serve } from './serve';
-import deviceView from './device-view';
 
 export default function(env: EventEnvironment)  {
 
@@ -15,8 +14,6 @@ export default function(env: EventEnvironment)  {
       return generate(options['metadata'], options['inputs'], options['options']);
     case 'serve':
       return serve(options['metadata'], options['inputs'], options['options']);
-    case 'device-view':
-      return deviceView(options['metadata'], options['inputs'], options['options']);
     }
   };
 }
